@@ -1,0 +1,42 @@
+use strict;
+use warnings;
+use HTML::Entities;
+
+{
+    body => \'view-resume.tmpl',
+    title => 'View Resume',
+    plugins => [
+        { Sub          => 2000 },
+        { DBI          => 3000 },
+        { FileTypeIcon => 4000 },
+    ],
+
+    plug_sub => sub {
+        my ( $t, $q ) = @_;
+
+        if ( defined $q->{id} and length $q->{id} ) {
+            $t->{dbi}{dbi_get} = {
+                single  => 1,
+                on_data => 'has_resume',
+                sql     => [
+                    'SELECT * FROM resumes WHERE id = ?',
+                    { Slice => {} },
+                    $q->{id},
+                ],
+                process => sub {
+                    my $d = shift || [];
+                    my $t = shift;
+
+                    for ( @$d ) {
+                        encode_entities $_->{skills};
+                        $_->{skills} =~ s/[\r\n]+/<br>/g;
+
+                        $t->{plug_file_type_icon}{files} = $_->{file};
+                    }
+                },
+            };
+        }
+    },
+}
+
+
