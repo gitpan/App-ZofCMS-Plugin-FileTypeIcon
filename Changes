@@ -1,5 +1,9 @@
 Revision history for App-ZofCMS-Plugin-FileTypeIcon
 
+0.0102  March 6, 2009
+        Added the class="" attribute to <img> elements
+        Added xhtml option.
+
 0.0101  March 5, 2009
         First version, released on an unsuspecting world.
 

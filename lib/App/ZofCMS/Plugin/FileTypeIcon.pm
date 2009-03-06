@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::FileTypeIcon;
 use warnings;
 use strict;
 use File::Spec;
-our $VERSION = '0.0101';
+our $VERSION = '0.0102';
 
 use base 'App::ZofCMS::Plugin::Base';
 
@@ -16,6 +16,7 @@ sub _defaults {
         only_path   => 0,
         icon_width  => 16,
         icon_height => 16,
+        xhtml       => 0,
     );
 }
 sub _do {
@@ -29,6 +30,7 @@ sub _do {
     }
 
     my $counter = 0;
+    my $tag_end = $conf->{xhtml} ? '/' : '';
     for ( @{ $conf->{files} } ) {
         my $key_name;
         my $file = $_;
@@ -48,7 +50,7 @@ sub _do {
     
         my $value = $conf->{only_path}
         ? $icon_file
-        : qq|<img src="$icon_file" width="$conf->{icon_width}" height="$conf->{icon_height}" alt="$img_alt" title="$img_alt">|;
+        : qq|<img class="file_type_icon" src="$icon_file" width="$conf->{icon_width}" height="$conf->{icon_height}" alt="$img_alt" title="$img_alt"$tag_end>|;
 
         if ( $conf->{as_arrayref} ) {
             push @{ $t->{t}{ $conf->{prefix} } }, $value;
@@ -114,6 +116,7 @@ In your ZofCMS Template or Main Config File:
             my ( $t, $q, $conf ) = @_;
             die "Weeee";
         },
+        xhtml       => 0,
     },
 
 In your L<HTML::Template> file:
@@ -181,6 +184,7 @@ to use this plugin with some other plugins, so make sure to get priority right.
             my ( $t, $q, $conf ) = @_;
             die "Weeee";
         },
+        xhtml       => 0,
     },
 
 Plugin won't run if C<plug_file_type_icon> is not set or its C<files> key does not contain
@@ -273,6 +277,19 @@ B<Optional>. Takes a subref as a value, this subref will be run after all filena
 C<files> arrayref have been processed. The C<@_> will contain (in that order) C<$t, $q, $conf>
 where C<$t> is ZofCMS Template hashref, C<$q> is hashref of query parameters and
 C<$conf> is L<App::ZofCMS::Config> object. B<By defaults:> is not specified.
+
+=head3 C<xhtml>
+
+    xhtml => 0,
+
+B<Optional>. If you wish to close C<< <img> >> elements as to when you're writing XHTML, then
+set C<xhtml> argument to a true value. B<Defaults to:> C<0>
+
+=head1 GENERATED HTML CODE
+
+The plugin generates the following HTML code:
+
+<img class="file_type_icon" src="pics/fileicons/png.png" width="16" height="16" alt="PNG file" title="PNG file">
 
 =head1 AUTHOR
 
