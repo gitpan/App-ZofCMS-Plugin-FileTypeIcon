@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::FileTypeIcon;
 use warnings;
 use strict;
 use File::Spec;
-our $VERSION = '0.0102';
+our $VERSION = '0.0103';
 
 use base 'App::ZofCMS::Plugin::Base';
 
