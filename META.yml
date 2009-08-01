@@ -1,6 +1,6 @@
 ---
 name: App-ZofCMS-Plugin-FileTypeIcon
-version: 0.0104
+version: 0.0105
 author:
   - "Zoffix <'zoffix@cpan.org'>"
 abstract: present users with pretty icons depending on file type
@@ -18,7 +18,7 @@ configure_requires:
 provides:
   App::ZofCMS::Plugin::FileTypeIcon:
     file: lib/App/ZofCMS/Plugin/FileTypeIcon.pm
-    version: 0.0104
+    version: 0.0105
 generated_by: Module::Build version 0.34
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
