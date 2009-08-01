@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::FileTypeIcon;
 use warnings;
 use strict;
 use File::Spec;
-our $VERSION = '0.0103';
+our $VERSION = '0.0104';
 
 use base 'App::ZofCMS::Plugin::Base';
 
@@ -187,8 +187,22 @@ to use this plugin with some other plugins, so make sure to get priority right.
         xhtml       => 0,
     },
 
+    # or set config via a subref
+    plug_file_type_icon => sub {
+        my ( $t, $q, $config ) = @_;
+        return {
+            files => [
+                qw/ foo.png bar.doc beer.pdf /,
+            ],
+        };
+    },
+
 Plugin won't run if C<plug_file_type_icon> is not set or its C<files> key does not contain
-any files. The C<plug_file_type_icon> first-level key takes a hashref as a value. The
+any files. The C<plug_file_type_icon> first-level key takes a hashref or a subref as a value. If subref is specified,
+its return value will be assigned to C<plug_file_type_icon> as if it was already there. If sub returns
+an C<undef>, then plugin will stop further processing. The C<@_> of the subref will
+contain (in that order): ZofCMS Tempalate hashref, query parameters hashref and
+L<App::ZofCMS::Config> object. The
 keys of this hashref can be set in either ZofCMS Template or Main Config Files; keys that are
 set in both files will take their values from ZofCMS Template file. The following keys/values
 are valid in C<plug_file_type_icon>:
