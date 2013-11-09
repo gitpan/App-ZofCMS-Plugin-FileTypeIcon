@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::FileTypeIcon;
 use warnings;
 use strict;
 use File::Spec;
-our $VERSION = '0.0105';
+our $VERSION = '0.0106';
 
 use base 'App::ZofCMS::Plugin::Base';
 
@@ -84,6 +84,8 @@ sub make_icon_name {
 
 1;
 __END__
+
+=encoding utf8
 
 =head1 NAME
 

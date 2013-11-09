@@ -17,7 +17,9 @@ my $builder = Module::Build->new(
         'App::ZofCMS'               => 0.0211,
         'File::Spec'                => 3.2701,
         'App::ZofCMS::Plugin::Base' => 0.0102,
+        perl => '5.006',
     },
+    configure_requires => { 'Module::Build' => 0 },
     add_to_cleanup      => [ 'App-ZofCMS-Plugin-FileTypeIcon-*' ],
     create_makefile_pl => 'traditional',
 );

@@ -1,8 +1,8 @@
 App-ZofCMS-Plugin-FileTypeIcon
 
-The module is a plugin for L<App::ZofCMS> that provides a method to show pretty little icons
-that vary depending on the extension of the file (which is just a string as far as the module
-is concerned).
+The module is a plugin for L<App::ZofCMS> that provides a method to
+show pretty little icons that vary depending on the extension of the
+file (which is just a string as far as the module is concerned).
 
 INSTALLATION
 
