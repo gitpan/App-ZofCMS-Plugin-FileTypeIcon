@@ -2,8 +2,10 @@ package App::ZofCMS::Plugin::FileTypeIcon;
 
 use warnings;
 use strict;
+
+our $VERSION = '1.001001'; # VERSION
+
 use File::Spec;
-our $VERSION = '0.0106';
 
 use base 'App::ZofCMS::Plugin::Base';
 
@@ -46,8 +48,8 @@ sub _do {
             $counter++;
         }
 
-        my ( $icon_file, $img_alt ) = make_icon_name($conf->{resource}, $file);
-    
+        my ( $icon_file, $img_alt ) = _make_icon_name($conf->{resource}, $file);
+
         my $value = $conf->{only_path}
         ? $icon_file
         : qq|<img class="file_type_icon" src="$icon_file" width="$conf->{icon_width}" height="$conf->{icon_height}" alt="$img_alt" title="$img_alt"$tag_end>|;
@@ -65,7 +67,7 @@ sub _do {
     }
 }
 
-sub make_icon_name {
+sub _make_icon_name {
     my ( $resource, $file ) = @_;
     my ( $ext ) = $file =~ /[.]([^.]+)$/;
     $ext = 'unknown'
@@ -86,6 +88,8 @@ sub make_icon_name {
 __END__
 
 =encoding utf8
+
+=for stopwords DelironUI XHTML dir distro 16px subref subrefs
 
 =head1 NAME
 
@@ -137,9 +141,16 @@ is concerned).
 This documentation assumes you've read L<App::ZofCMS>, L<App::ZofCMS::Config> and
 L<App::ZofCMS::Template>
 
+=head1 SEE ALSO
+
+Depending on your needs, you may find my
+L<DelironUI|https://github.com/zoffixznet/DelironUI> project useful,
+as it uses the same icon set, except the icons are added with
+JavaScript/CSS (see C<.dui.file.list>).
+
 =head1 GETTING THE IMAGES FOR THE ICONS
 
-There are 69 icons plus the "unknown file" icon in an archive that is in examples/ directory
+There are many icons plus the "unknown file" icon in an archive that is in examples/ directory
 of this distribution. You can also get it from my website:
 
     wget http://zoffix.com/new/fileicons.tar.gz;
@@ -152,7 +163,7 @@ L<http://www.splitbrain.org/projects/file_icons>
 Alternatively, you may want to draw your own icons; in that case, the filenames for the icons
 are made out as C<$lowercase_filetype_extension.png>.
 If you draw some icons yourself and would like to share, feel free to email them to me
-at C<zoffix@cpan.org>. 
+at C<zoffix@cpan.org>.
 
 These images would obviously need to be placed in web-accessible directory on your website.
 
@@ -203,7 +214,7 @@ Plugin won't run if C<plug_file_type_icon> is not set or its C<files> key does n
 any files. The C<plug_file_type_icon> first-level key takes a hashref or a subref as a value. If subref is specified,
 its return value will be assigned to C<plug_file_type_icon> as if it was already there. If sub returns
 an C<undef>, then plugin will stop further processing. The C<@_> of the subref will
-contain (in that order): ZofCMS Tempalate hashref, query parameters hashref and
+contain (in that order): ZofCMS Template hashref, query parameters hashref and
 L<App::ZofCMS::Config> object. The
 keys of this hashref can be set in either ZofCMS Template or Main Config Files; keys that are
 set in both files will take their values from ZofCMS Template file. The following keys/values
@@ -307,54 +318,29 @@ The plugin generates the following HTML code:
 
 <img class="file_type_icon" src="pics/fileicons/png.png" width="16" height="16" alt="PNG file" title="PNG file">
 
-=head1 AUTHOR
+=head1 REPOSITORY
 
-'Zoffix, C<< <'zoffix at cpan.org'> >>
-(L<http://zoffix.com/>, L<http://haslayout.net/>, L<http://zofdesign.com/>)
-
-Icons were obtained from L<http://www.splitbrain.org/projects/file_icons>
+Fork this module on GitHub:
+L<https://github.com/zoffixznet/App-ZofCMS-Plugin-FileTypeIcon>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-app-zofcms-plugin-filetypeicon at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=App-ZofCMS-Plugin-FileTypeIcon>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+To report bugs or request features, please use
+L<https://github.com/zoffixznet/App-ZofCMS-Plugin-FileTypeIcon/issues>
 
-=head1 SUPPORT
+If you can't access GitHub, you can email your request
+to C<bug-App-ZofCMS-Plugin-FileTypeIcon at rt.cpan.org>
 
-You can find documentation for this module with the perldoc command.
+=head1 AUTHOR
 
-    perldoc App::ZofCMS::Plugin::FileTypeIcon
+Zoffix Znet <zoffix at cpan.org>
+(L<http://zoffix.com/>, L<http://haslayout.net/>)
 
-You can also look for information at:
+=head1 LICENSE
 
-=over 4
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-ZofCMS-Plugin-FileTypeIcon>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/App-ZofCMS-Plugin-FileTypeIcon>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/App-ZofCMS-Plugin-FileTypeIcon>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/App-ZofCMS-Plugin-FileTypeIcon>
-
-=back
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2009 'Zoffix, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
+You can use and distribute this module under the same terms as Perl itself.
+See the C<LICENSE> file included in this distribution for complete
+details.
 
 =cut
 

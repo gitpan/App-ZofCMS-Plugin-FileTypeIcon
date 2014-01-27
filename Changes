@@ -1,5 +1,9 @@
 Revision history for App-ZofCMS-Plugin-FileTypeIcon
 
+1.001001 2014-01-26
+        - Converted to dzil
+        - Fixed RT#92337 (update icon image files)
+
 0.0106  2013-11-09
         - Minor fixes to comply with specs and Kwalitee game
 
